@@ -13,11 +13,16 @@ public class archivosBinarios {
                 BufferedOutputStream b = new BufferedOutputStream(a);
                 // Para trabajar con datos básicos y no solo con 0 y 1, trabajamos con DATA
                 DataOutputStream c = new DataOutputStream(b);
+                // Si queremos guardar un objeto y no un dato básico, se usa Object
+                ObjectOutputStream d = new ObjectOutputStream(c);
                 ){
+        // Es mejor usar siempre el último que hemos hecho, habría que sustituir esto por d
+        d.writeUTF("hola");
+        d.writeInt(8);
+        d.writeBoolean(true);
 
-        c.writeUTF("hola");
-        c.writeInt(8);
-        c.writeBoolean(true);
+        Persona p = new Persona("Romi", 24);
+        d.writeObject(p);
         }catch (IOException e){
             System.out.println("ERROR: "+e.getMessage());
         }
