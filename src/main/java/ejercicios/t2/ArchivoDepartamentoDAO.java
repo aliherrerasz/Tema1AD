@@ -40,27 +40,39 @@ public class ArchivoDepartamentoDAO implements DepartamentoDAO {
     @Override
     public Departamento añadir(String nombre) {
         File archivo = new File(ruta);
-        if(!archivo.isFile()){
-            try(
+        Departamento d = new Departamento(siguienteId, nombre);
+        if (!archivo.isFile()) {
+            try (
                     OutputStream a = new FileOutputStream(ruta);
                     BufferedOutputStream b = new BufferedOutputStream(a);
-                    ObjectOutputStream c  = new ObjectOutputStream(b);
+                    ObjectOutputStream c = new ObjectOutputStream(b);
 
             ) {
-                c.writeObject();
+                c.writeObject(new Departamento(siguienteId+1,nombre));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        try(
-                InputStream a = new FileInputStream(this.ruta);
-                BufferedInputStream  b = new BufferedInputStream(a);
-                ObjectInputStream c  = new ObjectInputStream(b);
-                ){
+        try (
+                OutputStream a = new FileOutputStream(this.ruta);
+                BufferedOutputStream b = new BufferedOutputStream(a);
+                ObjectOutputStream c = new ObjectOutputStream(b);
+        ) {
+            if (siguienteId == null) {
+                int mayorId = 0;
+                for (Departamento departamento : this.getDepartamentos()) {
+                    if (departamento.id() > mayorId) {
+                        mayorId = departamento.id();
+                    }
+                }
+                siguienteId = mayorId + 1;
+            }
+            c.writeObject(d);
+            siguienteId++;
 
-
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        return d;
     }
 }
