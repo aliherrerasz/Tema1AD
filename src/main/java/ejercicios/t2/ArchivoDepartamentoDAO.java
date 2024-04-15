@@ -1,7 +1,6 @@
 package ejercicios.t2;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class ArchivoDepartamentoDAO implements DepartamentoDAO {
             }
         }
         try (
-                OutputStream a = new FileOutputStream(this.ruta);
+                OutputStream a = new FileOutputStream(this.ruta, true);
                 BufferedOutputStream b = new BufferedOutputStream(a);
                 ObjectOutputStream c = new ObjectOutputStream(b);
         ) {
