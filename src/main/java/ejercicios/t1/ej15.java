@@ -1,4 +1,4 @@
-package ejercicios;
+package ejercicios.t1;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -11,17 +11,15 @@ import java.util.Scanner;
 * que el original. El programa usará el método
 * System.getProperty pasándole como parámetro “java.version” para
 * detectar la versión de Java.
- En caso de ser Java 8 (o inferior)
-* se usará la clase Files para hacer el duplicado.
- A partir de Java 9,
-* hará el duplicado con los nuevos métodos de java.io
-*
+ En caso de ser Java 8 (o inferior): se usará la clase Files para hacer el duplicado.
+ A partir de Java 9: hará el duplicado con los nuevos métodos de java.io
 * */
 public class ej15 {
     public static void main(String[] args) {
         System.out.println("Introduce la ruta de un archivo: ");
         String ruta = new Scanner(System.in).nextLine();
-        int version = Integer.parseInt(System.getProperty("java.version"));
+        String version = (System.getProperty("java.version"));
+        vers
         Path carpetaOrigen = Paths.get(ruta);
 
         if (version <= 8) {
